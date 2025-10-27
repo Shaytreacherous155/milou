@@ -1,0 +1,95 @@
+<resources>
+    <!-- App Info -->
+    <string name="app_name">milou</string>
+    <string name="username">santiifm</string>
+    <string name="occupation">Alleged Software Engineer</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_downloads">Downloads</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_contact">Contact</string>
+    
+    <!-- Top Bar -->
+    <string name="topbar_title">Milou</string>
+    <string name="topbar_logo_desc">Milou</string>
+    
+    <!-- Search & Filter -->
+    <string name="search_library">Search library</string>
+    <string name="search_consoles">Search consoles...</string>
+    <string name="filter_by_console">Filter by Console</string>
+    <string name="filter_by_tags">Filter by Tags</string>
+    <string name="all_consoles">All Consoles</string>
+    <string name="clear">Clear</string>
+    
+    <!-- FAB -->
+    <string name="fab_menu">Menu</string>
+    <string name="fab_navigation_actions">Navigation &amp; Actions</string>
+    <string name="fab_refresh_db">Refresh DB</string>
+    
+    <!-- Downloads -->
+    <string name="download_started">Download of "%1$s" has been started</string>
+    <string name="download_speed">%1$.2f MB/s</string>
+    <string name="download_size">Size: %1$s</string>
+    <string name="download_cancel">Cancel Download</string>
+    <string name="extracting_files">Extracting files...</string>
+    <string name="download_retry">Retry Download</string>
+    <string name="download_delete">Delete Download</string>
+    <string name="download_action">Action</string>
+    <string name="load_more">Load 100 More</string>
+    
+    <!-- Delete Confirmation -->
+    <string name="delete_download_title">Delete Download</string>
+    <string name="delete_download_message">This download has completed. Do you want to delete the file from storage or just remove it from the download list?</string>
+    <string name="delete_file">Delete File</string>
+    <string name="keep_file">Keep File</string>
+    
+    <!-- File Sizes -->
+    <string name="file_size_bytes">%1$d B</string>
+    <string name="file_size_kb">%1$.1f KB</string>
+    <string name="file_size_mb">%1$.1f MB</string>
+    <string name="file_size_gb">%1$.1f GB</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_download_directory">Download directory</string>
+    <string name="settings_pick_folder">Pick folder</string>
+    <string name="settings_separate_by_console">Separate subfolders by console</string>
+    <string name="settings_auto_unzip">Auto-unzip files</string>
+    <string name="settings_limit_speed">Limit download speed: %1$s</string>
+    <string name="settings_unrestricted">Unrestricted</string>
+    <string name="settings_concurrent_downloads">Concurrent downloads: %1$d</string>
+
+    <!-- Messages -->
+    <string name="msg_db_rebuild_started">Database rebuild started!</string>
+    <string name="msg_db_rebuild_complete">Database rebuild complete!</string>
+    <string name="msg_configure_directory">Please configure download directory in settings</string>
+    <string name="msg_operation_failed">Operation failed</string>
+    <string name="msg_unknown_error">Unknown error</string>
+    <string name="msg_http_error">HTTP Error: %1$d</string>
+    <string name="msg_failed_create_file">Failed to create file in storage</string>
+    <string name="msg_failed_output_stream">Failed to get output stream</string>
+    
+    <!-- Status -->
+    <string name="status_unknown">Unknown</string>
+    <string name="status_idle">Idle</string>
+    <string name="status_building_db">Building DB: %1$d / %2$d files</string>
+    
+    <!-- Progress Messages -->
+    <string name="progress_idle">Idle</string>
+    <string name="progress_building_db">Building DB: %1$d / %2$d files</string>
+    <string name="toast_db_rebuild_complete">Database rebuild complete!</string>
+    
+    <!-- Error Messages -->
+    <string name="error_operation_failed">Operation failed: %1$s</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_configure_directory">Please configure download directory in settings</string>
+    
+    <!-- MIME Types -->
+    <string name="mime_octet_stream">application/octet-stream</string>
+    
+    <!-- HTTP -->
+    <string name="http_user_agent">Milou Downloader/1.0</string>
+    <string name="http_accept">*/*</string>
+    <string name="http_method_get">GET</string>
+</resources>
