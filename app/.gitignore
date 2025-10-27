@@ -1,1 +1,81 @@
-/build
+# Gradle build output
+/build/
+/**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Gradle cache and logs
+.gradle/
+.gradle-cache/
+**/local.properties
+
+# Android Studio specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Generated files
+captures/
+output.json
+
+# Log files
+*.log
+
+# Android specific
+*.apk
+*.ap_
+*.aab
+
+# Keystore files (very important)
+*.jks
+*.keystore
+*.key
+*.pem
+
+# NDK / CMake
+.externalNativeBuild/
+.cxx/
+
+# Kotlin specific
+kotlin-js-store/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Misc
+/.gradle/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build artifacts
+app/release/
+app/debug/
+app/intermediates/
+app/generated/
+
+# Test and coverage reports
+**/test-results/
+**/androidTest-results/
+**/reports/
+**/jacoco/
+**/coverage/
+
+# Jetpack Compose compiler caches
+compose-cache/
