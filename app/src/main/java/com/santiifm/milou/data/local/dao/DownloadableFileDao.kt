@@ -67,6 +67,22 @@ interface DownloadableFileDao {
         manufacturer: String?,
         consoleId: String?
     ): List<String>
+    
+    @Query("""
+        SELECT DISTINCT c.id, c.name, c.manufacturerId, c.urls, COUNT(df.id) as fileCount
+        FROM consoles c
+        JOIN downloadable_files df ON c.id = df.consoleId
+        JOIN manufacturers m ON c.manufacturerId = m.id
+        WHERE (:query = '*' OR df.name LIKE '%' || :query || '%')
+          AND (:manufacturer IS NULL OR m.name = :manufacturer)
+        GROUP BY c.id, c.name, c.manufacturerId, c.urls
+        HAVING fileCount > 0
+        ORDER BY c.name ASC
+    """)
+    suspend fun getConsolesWithFiles(
+        query: String,
+        manufacturer: String?
+    ): List<ConsoleWithFileCount>
 
     @Transaction
     suspend fun insertFilesWithTags(files: List<DownloadableFileEntity>, tags: List<FileTagEntity>) {
@@ -124,4 +140,12 @@ data class DownloadableFileWithTagsResult(
     val fileSize: Long,
     val fileExtension: String,
     val tags: String?
+)
+
+data class ConsoleWithFileCount(
+    val id: String,
+    val name: String,
+    val manufacturerId: String,
+    val urls: String,
+    val fileCount: Int
 )

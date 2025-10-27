@@ -49,12 +49,19 @@ object FileParsingUtils {
         val matches = tagPattern.findAll(displayName)
         
         for (match in matches) {
-            val tag = match.groupValues[1].trim()
-            if (isValidTag(tag)) {
-                tags.add(tag)
-                // Remove only the parentheses that contain valid tags
-                cleanName = cleanName.replace(match.value, "").trim()
+            val content = match.groupValues[1].trim()
+            
+            // Split by comma to handle multiple values in parentheses
+            val values = content.split(",").map { it.trim() }
+            
+            for (value in values) {
+                if (isValidTag(value)) {
+                    tags.add(value)
+                }
             }
+            
+            // Remove the entire parentheses group from the name
+            cleanName = cleanName.replace(match.value, "").trim()
         }
         
         // Clean up any extra spaces that might be left
@@ -76,7 +83,8 @@ object FileParsingUtils {
         
         val validRegions = setOf(
             "USA", "EUROPE", "JAPAN", "KOREA", "CHINA", "AUSTRALIA", "CANADA", "MEXICO",
-            "BRAZIL", "GERMANY", "FRANCE", "SPAIN", "ITALY", "RUSSIA", "UK", "UNITED KINGDOM", "BRITAIN"
+            "BRAZIL", "GERMANY", "FRANCE", "SPAIN", "ITALY", "RUSSIA", "UK", "UNITED KINGDOM",
+            "BRITAIN", "WORLD"
         )
         if (cleanTag in validRegions) return true
         

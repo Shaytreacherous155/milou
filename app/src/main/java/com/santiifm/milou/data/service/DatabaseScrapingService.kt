@@ -126,10 +126,10 @@ class DatabaseScrapingService @Inject constructor(
             if (allFiles.isNotEmpty()) {
                 val fileIds = downloadableFileDao.insertAll(allFiles)
                 
-                val fileIdMap = allFiles.zip(fileIds).associate { (file, id) -> file.name to id }
+                val fileIdMap = allFiles.zip(fileIds).associate { (file, id) -> "${file.fileName}|${file.downloadUrl}" to id }
                 
                 val updatedTags = allTags.flatMap { (file, tags) ->
-                    val fileId = fileIdMap[file.name] ?: 0L
+                    val fileId = fileIdMap["${file.fileName}|${file.downloadUrl}"] ?: 0L
                     tags.map { tag -> tag.copy(fileId = fileId) }
                 }
                 

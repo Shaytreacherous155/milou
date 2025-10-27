@@ -121,18 +121,30 @@ fun RomList(
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(
-                        text = getConsoleName(rom.consoleId),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyMedium,
+                    Column(
                         modifier = Modifier.padding(start = 8.dp),
-                        maxLines = 2,
-                        lineHeight = 16.sp
-                    )
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Text(
+                            text = getConsoleName(rom.consoleId),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 2,
+                            lineHeight = 16.sp
+                        )
+                        if (rom.fileSize > 0) {
+                            Text(
+                                text = formatFileSize(rom.fileSize),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(top = 2.dp)
+                            )
+                        }
+                    }
                 }
                 
                 val hasTags = romWithTags.tags.isNotEmpty() || rom.fileExtension.isNotEmpty()
-                if (hasTags || rom.fileSize > 0) {
+                if (hasTags) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -169,15 +181,6 @@ fun RomList(
                                     )
                                 }
                             }
-                        }
-                        
-                        if (rom.fileSize > 0) {
-                            Text(
-                                text = formatFileSize(rom.fileSize),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(top = if (allTags.isNotEmpty()) 4.dp else 0.dp)
-                            )
                         }
                     }
                 }

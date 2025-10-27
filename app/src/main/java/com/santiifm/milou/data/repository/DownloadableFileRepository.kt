@@ -1,9 +1,12 @@
 package com.santiifm.milou.data.repository
 
 import com.santiifm.milou.data.local.dao.DownloadableFileDao
+import com.santiifm.milou.data.local.dao.ConsoleWithFileCount
 import com.santiifm.milou.data.local.entity.DownloadableFileEntity
 import com.santiifm.milou.data.local.entity.FileTagEntity
 import com.santiifm.milou.data.model.DownloadableFileWithTags
+import com.santiifm.milou.data.model.CategorizedTags
+import com.santiifm.milou.data.model.TagCategorizer
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -70,6 +73,29 @@ class DownloadableFileRepository @Inject constructor(
             query = query.ifBlank { "*" },
             manufacturer = manufacturer,
             consoleId = consoleId
+        )
+    }
+    
+    suspend fun getCategorizedTags(
+        query: String,
+        manufacturer: String? = null,
+        consoleId: String? = null
+    ): CategorizedTags {
+        val allTags = dao.getAvailableTags(
+            query = query.ifBlank { "*" },
+            manufacturer = manufacturer,
+            consoleId = consoleId
+        )
+        return TagCategorizer.categorizeTags(allTags)
+    }
+    
+    suspend fun getConsolesWithFiles(
+        query: String,
+        manufacturer: String? = null
+    ): List<ConsoleWithFileCount> {
+        return dao.getConsolesWithFiles(
+            query = query.ifBlank { "*" },
+            manufacturer = manufacturer
         )
     }
 }

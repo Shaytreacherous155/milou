@@ -3,6 +3,7 @@ package com.santiifm.milou.ui.screens.home.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
@@ -43,132 +44,167 @@ fun SearchSection(
     var showTagFilter by remember { mutableStateOf(false) }
     var showConsoleFilter by remember { mutableStateOf(false) }
     var showFilters by remember { mutableStateOf(false) }
+    var showLandscapeFilterOverlay by remember { mutableStateOf(false) }
     val sortAsc by viewModel.sortAsc.collectAsState()
     val selectedConsoles by viewModel.selectedConsoles.collectAsState()
     val selectedTags by viewModel.activeTags.collectAsState()
-    val consoles by viewModel.consoles.collectAsState()
     val tagFilterMode by viewModel.tagFilterMode.collectAsState()
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
 
-    Column(
-        modifier = modifier
-            .padding(
-                start = Constants.DEFAULT_PADDING_DP.dp,
-                end = Constants.DEFAULT_PADDING_DP.dp,
-                bottom = if (isLandscape) 4.dp else Constants.DEFAULT_PADDING_DP.dp,
-                top = if (isLandscape) 4.dp else 0.dp
-            ),
-        verticalArrangement = Arrangement.spacedBy(if (isLandscape) 4.dp else 8.dp)
-    ) {
-        if (!isLandscape) {
-            Text(
-                text = "Search",
-                style = MaterialTheme.typography.titleLarge
-            )
-        }
-        
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+    // Only show search bar when not in landscape filter overlay mode
+    if (!(isLandscape && showLandscapeFilterOverlay)) {
+        Column(
+            modifier = modifier
+                .padding(
+                    start = Constants.DEFAULT_PADDING_DP.dp,
+                    end = Constants.DEFAULT_PADDING_DP.dp,
+                    bottom = if (isLandscape) 4.dp else Constants.DEFAULT_PADDING_DP.dp,
+                    top = if (isLandscape) 0.dp else 0.dp
+                ),
+            verticalArrangement = Arrangement.spacedBy(if (isLandscape) 4.dp else 8.dp)
         ) {
-            OutlinedTextField(
-                value = query,
-                onValueChange = { 
-                    query = it
-                    viewModel.setSearch(it)
-                },
-                label = { Text(stringResource(R.string.search_library)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Search
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        viewModel.setSearch(query)
-                    }
-                ),
-                modifier = Modifier.weight(1f)
-            )
-            
-            IconButton(
-                onClick = { showFilters = !showFilters }
-            ) {
-                Icon(
-                    painter = painterResource(if (showFilters) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down),
-                    contentDescription = if (showFilters) "Hide filters" else "Show filters"
+            if (!isLandscape) {
+                Text(
+                    text = "Search",
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
-        }
-        if (isLandscape) {
-            VerticalSpacer(height = 4.dp)
-        } else {
-            VerticalSpacer()
-        }
-        
-        if (showFilters) {
+            
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row {
-                    ConsoleFiltersButton(
-                        onClick = { showConsoleFilter = !showConsoleFilter },
-                        modifier = Modifier.padding(end = Constants.BUTTON_SPACING_DP.dp)
+                OutlinedTextField(
+                    value = query,
+                    onValueChange = { 
+                        query = it
+                        viewModel.setSearch(it)
+                    },
+                    label = { Text(stringResource(R.string.search_library)) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Search
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            viewModel.setSearch(query)
+                        }
+                    ),
+                    modifier = Modifier.weight(1f)
+                )
+                
+                IconButton(
+                    onClick = { 
+                        if (isLandscape) {
+                            showLandscapeFilterOverlay = true
+                        } else {
+                            showFilters = !showFilters
+                        }
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(if (showFilters || showLandscapeFilterOverlay) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down),
+                        contentDescription = if (showFilters || showLandscapeFilterOverlay) "Hide filters" else "Show filters"
                     )
+                }
+            }
+            if (isLandscape) {
+                VerticalSpacer(height = 4.dp)
+            } else {
+                VerticalSpacer()
+            }
+            
+            if (showFilters) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row {
+                        ConsoleFiltersButton(
+                            onClick = { showConsoleFilter = !showConsoleFilter },
+                            modifier = Modifier.padding(end = Constants.BUTTON_SPACING_DP.dp)
+                        )
+                        
+                        SortButton(
+                            onClick = { viewModel.setSortAsc(!sortAsc) },
+                            modifier = Modifier.padding(end = Constants.BUTTON_SPACING_DP.dp)
+                        )
+                        
+                        FilterButton(
+                            onClick = { showTagFilter = !showTagFilter }
+                        )
+                    }
                     
-                    SortButton(
-                        onClick = { viewModel.setSortAsc(!sortAsc) },
-                        modifier = Modifier.padding(end = Constants.BUTTON_SPACING_DP.dp)
+                    ClearFiltersButton(
+                        onClick = {
+                            viewModel.clearAllFilters()
+                            query = ""
+                        }
                     )
-                    
-                    FilterButton(
-                        onClick = { showTagFilter = !showTagFilter }
+                }
+            }
+            
+            if (showFilters) {
+                if (showTagFilter) {
+                    TagFilterDropdown(
+                        viewModel = viewModel,
+                        isVisible = showTagFilter
                     )
                 }
                 
-                ClearFiltersButton(
-                    onClick = {
-                        viewModel.clearAllFilters()
-                        query = ""
-                    }
-                )
-            }
-        }
-        
-        if (showFilters) {
-            if (showTagFilter) {
-                TagFilterDropdown(
-                    viewModel = viewModel,
-                    isVisible = showTagFilter
-                )
-            }
-            
-            if (showConsoleFilter) {
-                ConsoleFilterDropdown(
-                    consoles = consoles,
-                    selectedConsoles = selectedConsoles,
-                    onConsoleToggle = { consoleId ->
-                        viewModel.toggleConsoleFilter(consoleId)
-                    },
-                    onClearFilters = {
-                        viewModel.clearConsoleFilters()
-                        showConsoleFilter = false
-                    }
-                )
-            }
+                if (showConsoleFilter) {
+                    ConsoleFilterDropdown(
+                        viewModel = viewModel,
+                        selectedConsoles = selectedConsoles,
+                        onConsoleToggle = { consoleId ->
+                            viewModel.toggleConsoleFilter(consoleId)
+                        },
+                        onClearFilters = {
+                            viewModel.clearConsoleFilters()
+                            showConsoleFilter = false
+                        }
+                    )
+                }
 
-            SelectedFiltersPills(
-                selectedConsoles = selectedConsoles,
-                selectedTags = selectedTags,
-                tagFilterMode = tagFilterMode,
-                getConsoleName = viewModel::getConsoleName,
-                onRemoveConsole = viewModel::removeConsole,
-                onRemoveTag = viewModel::removeTag,
-                modifier = Modifier.padding(top = if (isLandscape) 4.dp else 8.dp)
-            )
+                SelectedFiltersPills(
+                    selectedConsoles = selectedConsoles,
+                    selectedTags = selectedTags,
+                    tagFilterMode = tagFilterMode,
+                    getConsoleName = viewModel::getConsoleName,
+                    onRemoveConsole = viewModel::removeConsole,
+                    onRemoveTag = viewModel::removeTag,
+                    modifier = Modifier.padding(top = if (isLandscape) 4.dp else 8.dp)
+                )
+            }
         }
+    }
+    
+    // Landscape filter overlay
+    if (isLandscape && showLandscapeFilterOverlay) {
+        LandscapeFilterOverlay(
+            viewModel = viewModel,
+            selectedConsoles = selectedConsoles,
+            selectedTags = selectedTags,
+            onConsoleToggle = { consoleId ->
+                viewModel.toggleConsoleFilter(consoleId)
+            },
+            onTagToggle = { tag ->
+                viewModel.toggleTag(tag)
+            },
+            onClearConsoleFilters = {
+                viewModel.clearConsoleFilters()
+            },
+            onClearAllFilters = {
+                viewModel.clearAllFilters()
+                query = ""
+            },
+            onGoBack = {
+                showLandscapeFilterOverlay = false
+            },
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }

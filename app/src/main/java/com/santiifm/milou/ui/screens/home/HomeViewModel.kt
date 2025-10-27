@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.santiifm.milou.data.local.entity.ConsoleEntity
+import com.santiifm.milou.data.local.dao.ConsoleWithFileCount
 import com.santiifm.milou.data.model.DownloadableFileWithTags
+import com.santiifm.milou.data.model.CategorizedTags
 import com.santiifm.milou.data.repository.ConsoleRepository
 import com.santiifm.milou.data.repository.DownloadableFileRepository
 import com.santiifm.milou.data.repository.SettingsRepository
@@ -44,10 +46,16 @@ class HomeViewModel @Inject constructor(
     private val _consoles = MutableStateFlow<List<ConsoleEntity>>(emptyList())
     val consoles: StateFlow<List<ConsoleEntity>> = _consoles
     
+    private val _consolesWithFiles = MutableStateFlow<List<ConsoleWithFileCount>>(emptyList())
+    val consolesWithFiles: StateFlow<List<ConsoleWithFileCount>> = _consolesWithFiles
+    
     private val _filteredConsoles = MutableStateFlow<List<ConsoleEntity>>(emptyList())
 
     private val _availableTags = MutableStateFlow<List<String>>(emptyList())
     val availableTags: StateFlow<List<String>> = _availableTags
+    
+    private val _categorizedTags = MutableStateFlow<CategorizedTags?>(null)
+    val categorizedTags: StateFlow<CategorizedTags?> = _categorizedTags
     
     private val _hasMoreResults = MutableStateFlow(true)
     val hasMoreResults: StateFlow<Boolean> = _hasMoreResults
@@ -152,10 +160,25 @@ class HomeViewModel @Inject constructor(
             ConsoleFormatter.getConsoleDisplayName(it.id)
         }
         _filteredConsoles.value = _consoles.value
+        
+        // Load consoles that actually have files
+        val consolesWithFiles = repository.getConsolesWithFiles(
+            query = searchQuery.value.ifBlank { "*" },
+            manufacturer = null
+        )
+        _consolesWithFiles.value = consolesWithFiles.sortedBy { 
+            ConsoleFormatter.getConsoleDisplayName(it.id)
+        }
     }
     
     private suspend fun loadAvailableTags(query: String, manufacturer: String?, consoleId: String?) {
         _availableTags.value = repository.getAvailableTags(
+            query = query,
+            manufacturer = manufacturer,
+            consoleId = consoleId
+        )
+        
+        _categorizedTags.value = repository.getCategorizedTags(
             query = query,
             manufacturer = manufacturer,
             consoleId = consoleId
