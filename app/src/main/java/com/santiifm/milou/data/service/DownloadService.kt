@@ -246,7 +246,7 @@ class DownloadService @Inject constructor(
                 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val extractionSuccess = archiveExtractorService.extractArchive(
+                        val extractedFiles = archiveExtractorService.extractArchive(
                             context,
                             documentFile.uri,
                             downloadFileManager.getDownloadDirectoryUri(),
@@ -255,8 +255,11 @@ class DownloadService @Inject constructor(
                             }
                         )
                         
+                        val extractionSuccess = extractedFiles.isNotEmpty()
                         if (extractionSuccess) {
                             downloadFileManager.deleteFile(documentFile)
+                            // Store extracted files for later deletion
+                            originalDownloadEntities[file.fileName] = file.copy(extractedFiles = extractedFiles)
                             Log.d("DownloadService", "Successfully deleted archive after extraction: ${file.fileName}")
                         }
                         
@@ -313,7 +316,16 @@ class DownloadService @Inject constructor(
     fun deleteDownload(fileName: String, deleteFile: Boolean = false) {
         downloadJobs[fileName]?.cancel()
         downloadJobs.remove(fileName)
+        
+        val originalEntity = originalDownloadEntities[fileName]
         originalDownloadEntities.remove(fileName)
+        
+        if (deleteFile && originalEntity != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                downloadFileManager.deleteFileByName(originalEntity, deleteFile = true)
+            }
+        }
+        
         downloadProgressTracker.removeDownload(fileName)
     }
 

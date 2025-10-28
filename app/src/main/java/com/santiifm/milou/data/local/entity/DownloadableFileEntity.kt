@@ -2,6 +2,7 @@ package com.santiifm.milou.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
@@ -24,6 +25,17 @@ data class DownloadableFileEntity(
     val consoleId: String,
     val downloadUrl: String,
     val fileSize: Long = 0L,
-    val fileExtension: String = ""
-)
+    val fileExtension: String = "",
+    @Ignore val extractedFiles: List<String> = emptyList()
+) {
+    constructor(
+        id: Long,
+        name: String,
+        fileName: String,
+        consoleId: String,
+        downloadUrl: String,
+        fileSize: Long,
+        fileExtension: String
+    ) : this(id, name, fileName, consoleId, downloadUrl, fileSize, fileExtension, emptyList())
+}
 

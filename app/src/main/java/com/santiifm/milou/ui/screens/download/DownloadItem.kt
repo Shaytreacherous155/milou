@@ -27,6 +27,7 @@ import com.santiifm.milou.R
 import com.santiifm.milou.data.model.DownloadItemModel
 import com.santiifm.milou.data.model.DownloadStatus
 import com.santiifm.milou.data.model.getStatusAssets
+import com.santiifm.milou.util.FileParsingUtils
 import com.santiifm.milou.util.iconColorFor
 import kotlinx.coroutines.launch
 
@@ -56,12 +57,27 @@ fun DownloadItem(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            Text(
-                text = item.name,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface,
+            Column(
                 modifier = Modifier.weight(1f)
-            )
+            ) {
+                // Remove file extension from the clean name
+                val cleanNameWithoutExtension = item.name.substringBeforeLast(".")
+                Text(
+                    text = cleanNameWithoutExtension,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                
+                val decodedFileName = FileParsingUtils.decodeUrlEncodedFileName(item.fileName)
+                if (decodedFileName != item.fileName) {
+                    Text(
+                        text = decodedFileName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.width(8.dp))
 

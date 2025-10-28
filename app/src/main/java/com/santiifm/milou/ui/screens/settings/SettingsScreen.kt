@@ -102,11 +102,16 @@ fun SettingsScreen(
 
         Text(stringResource(R.string.settings_limit_speed, if (uiState.limitSpeed == Float.POSITIVE_INFINITY) stringResource(R.string.settings_unrestricted) else "${uiState.limitSpeed.toInt()} KB/s"), style = MaterialTheme.typography.titleMedium)
         
+        val sliderValue = if (uiState.limitSpeed == Float.POSITIVE_INFINITY) 0f else uiState.limitSpeed.coerceIn(1f, 1000f)
+        
         Slider(
-            value = uiState.limitSpeed,
-            onValueChange = { viewModel.onLimitSpeedChanged(context, it) },
+            value = sliderValue,
+            onValueChange = { sliderVal ->
+                val actualSpeed = if (sliderVal == 0f) Float.POSITIVE_INFINITY else sliderVal
+                viewModel.onLimitSpeedChanged(context, actualSpeed)
+            },
             valueRange = 0f..1000f,
-            steps = 19,
+            steps = 10,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(32.dp)

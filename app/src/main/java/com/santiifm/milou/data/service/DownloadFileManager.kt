@@ -10,6 +10,7 @@ import com.santiifm.milou.data.model.DownloadStatus
 import com.santiifm.milou.data.repository.ConsoleRepository
 import com.santiifm.milou.data.repository.SettingsRepository
 import com.santiifm.milou.util.ConsoleFormatter
+import com.santiifm.milou.util.FileParsingUtils
 import com.santiifm.milou.util.StorageHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
@@ -24,12 +25,9 @@ class DownloadFileManager @Inject constructor(
 ) {
     
     suspend fun createDownloadItem(file: DownloadableFileEntity): DownloadItemModel {
-        val consoles = consoleRepository.getAllConsoles().first()
-        val console = consoles.find { it.id == file.consoleId }
-        
         return DownloadItemModel(
             name = file.name,
-            fileName = file.fileName,
+            fileName = file.fileName, // Keep original for tracking
             downloadSpeed = 0f,
             progress = 0f,
             status = DownloadStatus.DOWNLOADING,
@@ -43,11 +41,12 @@ class DownloadFileManager @Inject constructor(
         downloadDirectoryUri: String,
         subPath: String
     ): DocumentFile? {
+        val decodedFileName = FileParsingUtils.decodeUrlEncodedFileName(file.fileName)
         return StorageHelper.createFile(
             context = context,
             uriString = downloadDirectoryUri,
             subPath = subPath,
-            fileName = file.fileName,
+            fileName = decodedFileName,
             mimeType = "application/octet-stream"
         )
     }
@@ -60,6 +59,44 @@ class DownloadFileManager @Inject constructor(
         return try {
             StorageHelper.deleteFile(documentFile)
             true
+        } catch (_: Exception) {
+            false
+        }
+    }
+    
+    suspend fun deleteFileByName(file: DownloadableFileEntity, deleteFile: Boolean = false): Boolean {
+        if (!deleteFile) return true
+        
+        return try {
+            val downloadDirectoryUri = getDownloadDirectoryUri()
+            val subPath = getSubPath(file)
+            val decodedFileName = FileParsingUtils.decodeUrlEncodedFileName(file.fileName)
+            
+            val directory = StorageHelper.createDirectory(
+                context = context,
+                uriString = downloadDirectoryUri.toString(),
+                subPath = subPath
+            ) ?: return false
+            
+            // If we have extracted files list, delete those specific files
+            if (file.extractedFiles.isNotEmpty()) {
+                var deletedAny = false
+                file.extractedFiles.forEach { extractedFileName ->
+                    val fileToDelete = directory.findFile(extractedFileName)
+                    if (fileToDelete?.delete() == true) {
+                        deletedAny = true
+                    }
+                }
+                return deletedAny
+            }
+            
+            // Fallback: try to delete the original archive file
+            val archiveFile = directory.findFile(decodedFileName)
+            if (archiveFile != null && archiveFile.exists()) {
+                return archiveFile.delete()
+            }
+
+            false
         } catch (_: Exception) {
             false
         }

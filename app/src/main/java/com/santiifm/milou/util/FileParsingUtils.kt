@@ -3,6 +3,8 @@ package com.santiifm.milou.util
 import com.santiifm.milou.data.local.entity.DownloadableFileEntity
 import com.santiifm.milou.data.local.entity.FileTagEntity
 import org.jsoup.nodes.Element
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 object FileParsingUtils {
     
@@ -92,6 +94,14 @@ object FileParsingUtils {
         if (cleanTag in validContinents) return true
         
         return false
+    }
+    
+    fun decodeUrlEncodedFileName(fileName: String): String {
+        return try {
+            URLDecoder.decode(fileName, StandardCharsets.UTF_8.toString())
+        } catch (e: Exception) {
+            fileName
+        }
     }
     
     fun parseFileFromRow(row: Element, baseUrl: String, consoleId: String): Pair<DownloadableFileEntity?, List<FileTagEntity>> {

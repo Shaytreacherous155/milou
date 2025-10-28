@@ -20,10 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.santiifm.milou.R
-import com.santiifm.milou.ui.components.FilterButton
-import com.santiifm.milou.ui.components.SortButton
-import com.santiifm.milou.ui.components.common.HorizontalSpacer
-import com.santiifm.milou.ui.components.common.PaddedRow
 
 @Composable
 fun DownloadScreen(
@@ -47,13 +43,6 @@ fun DownloadScreen(
                 style = MaterialTheme.typography.titleLarge
             )
         }
-        
-        PaddedRow {
-            SortButton()
-            HorizontalSpacer()
-            FilterButton()
-        }
-        
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
