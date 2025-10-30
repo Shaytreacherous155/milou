@@ -1,5 +1,7 @@
 package com.santiifm.milou.data.model
 
+import com.santiifm.milou.util.Constants
+
 data class TagCategory(
     val name: String,
     val tags: List<String>
@@ -44,13 +46,7 @@ object TagCategorizer {
     }
     
     private fun isRegion(tag: String): Boolean {
-        val validRegions = setOf(
-            "USA", "EUROPE", "JAPAN", "KOREA", "CHINA", "AUSTRALIA", "CANADA", "MEXICO",
-            "BRAZIL", "GERMANY", "FRANCE", "SPAIN", "ITALY", "RUSSIA", "UK", "UNITED KINGDOM",
-            "BRITAIN", "WORLD"
-        )
-        val validContinents = setOf("NORTH AMERICA", "SOUTH AMERICA", "EUROPE", "ASIA", "AFRICA", "OCEANIA")
-        return tag in validRegions || tag in validContinents
+        return tag in Constants.Tags.ALL_REGIONS
     }
     
     private fun isLanguage(tag: String): Boolean {
@@ -58,14 +54,14 @@ object TagCategorizer {
     }
     
     private fun isVideoStandard(tag: String): Boolean {
-        return tag in setOf("PAL", "NTSC", "NTSC-J", "NTSC-U", "NTSC-C")
+        return tag in Constants.Tags.VIDEO_STANDARDS
     }
     
     private fun isContentType(tag: String): Boolean {
-        return tag in setOf("DLC", "UPDATE", "TITLE UPDATE", "PATCH", "DEMO", "BETA", "PROTO", "GAME", "MISCELLANEOUS")
+        return tag in Constants.Tags.CONTENT_TYPES
     }
     
     private fun isFileType(tag: String): Boolean {
-        return tag.matches(Regex("^\\.[A-Z0-9]+$")) || tag in setOf("ZIP", "RAR", "7Z", "ISO", "BIN", "CUE")
+        return tag.matches(Constants.Tags.FILE_EXTENSION_PATTERN)
     }
 }

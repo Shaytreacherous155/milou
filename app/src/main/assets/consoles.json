@@ -48,22 +48,6 @@
         }
       ]
     },
-    "pokemon_mini": {
-      "urls": [
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Pokemon%20Mini/",
-          "contentType": "GAME"
-        }
-      ]
-    },
-    "virtual_boy": {
-      "urls": [
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Virtual%20Boy/",
-          "contentType": "GAME"
-        }
-      ]
-    },
     "nintendo_ds": {
       "urls": [
         {
@@ -73,31 +57,11 @@
         {
           "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Nintendo%20DS%20(Download%20Play)/",
           "contentType": "MISCELLANEOUS"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/nds_apfix/apfix/",
-          "contentType": "MISCELLANEOUS"
-        }
-      ]
-    },
-    "nintendo_dsi": {
-      "urls": [
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Nintendo%20DSi%20(Decrypted)/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Nintendo%20DSi%20(Digital)/",
-          "contentType": "MISCELLANEOUS"
         }
       ]
     },
     "nintendo_3ds": {
       "urls": [
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20Nintendo%203DS%20(Decrypted)/",
-          "contentType": "GAME"
-        },
         {
           "url": "https://myrient.erista.me/files/No-Intro/Unofficial%20-%20Nintendo%20-%20Nintendo%203DS%20(Digital)%20(Updates%20and%20DLC)%20(Decrypted)/",
           "contentType": "MISCELLANEOUS"
@@ -108,38 +72,10 @@
         }
       ]
     },
-    "new_nintendo_3ds": {
-      "urls": [
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Nintendo%20-%20New%20Nintendo%203DS%20(Decrypted)/",
-          "contentType": "GAME"
-        }
-      ]
-    },
     "gamecube": {
       "urls": [
         {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/Unknown/RedumpNintendoGameCubeAmerica/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/Unknown/RedumpNintendoGameCubeAmericaPart2/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/Unknown/RedumpNintendoGameCubeAmericaPart3/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/kodi_amp_spmc_canada/EuropeanGamecubeCollectionByGhostware/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/kodi_amp_spmc_canada/AustraliaGamecubeCollectionByGhostware/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/kodi_amp_spmc_canada/AsiaGamecubeCollectionByGhostware/",
+          "url": "https://myrient.erista.me/files/Redump/Nintendo%20-%20GameCube%20-%20NKit%20RVZ%20[zstd-19-128k]/",
           "contentType": "GAME"
         }
       ]
@@ -181,14 +117,6 @@
           "contentType": "GAME"
         },
         {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/psp-chd-zstd-redump-part1/psp-chd-zstd/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/psp-chd-zstd-redump-part2/psp-chd-zstd/",
-          "contentType": "GAME"
-        },
-        {
           "url": "https://myrient.erista.me/files/Internet%20Archive/storage_manager/PSP-DLC/%5BNo-Intro%5D%20PSP%20DLC/",
           "contentType": "MISCELLANEOUS"
         }
@@ -207,18 +135,14 @@
         {
           "url": "https://myrient.erista.me/files/Redump/Sony%20-%20PlayStation/",
           "contentType": "GAME"
-        },
+        }
+      ]
+    },
+    "playstation_3": {
+      "urls": [
         {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/chd_psx/CHD-PSX-USA/",
+          "url": "https://myrient.erista.me/files/Redump/Sony%20-%20PlayStation%203/",
           "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/chd_psx_eur/CHD-PSX-EUR/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/chd_psx_misc/CHD-PSX-Misc/",
-          "contentType": "MISCELLANEOUS"
         }
       ]
     },
@@ -237,22 +161,6 @@
         {
           "url": "https://myrient.erista.me/files/Redump/Microsoft%20-%20Xbox/",
           "contentType": "GAME"
-        }
-      ]
-    },
-    "xbox_360": {
-      "urls": [
-        {
-          "url": "https://myrient.erista.me/files/Redump/Microsoft%20-%20Xbox%20360/",
-          "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Unofficial%20-%20Microsoft%20-%20Xbox%20360%20(Title%20Updates)/",
-          "contentType": "MISCELLANEOUS"
-        },
-        {
-          "url": "https://myrient.erista.me/files/No-Intro/Microsoft%20-%20Xbox%20360%20(Digital)/",
-          "contentType": "MISCELLANEOUS"
         }
       ]
     }
@@ -331,10 +239,6 @@
         {
           "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/chd_segacd/CHD-MegaCD-PAL/",
           "contentType": "GAME"
-        },
-        {
-          "url": "https://myrient.erista.me/files/Internet%20Archive/chadmaster/chd_segacd/CHD-SegaCD-Bonus/",
-          "contentType": "MISCELLANEOUS"
         }
       ]
     }

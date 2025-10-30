@@ -77,21 +77,19 @@ object FileParsingUtils {
         
         val cleanTag = tag.trim().uppercase()
         
-        if (cleanTag in setOf("PAL", "NTSC", "NTSC-J", "NTSC-U", "NTSC-C")) return true
+        if (cleanTag in Constants.Tags.VIDEO_STANDARDS) return true
         
-        if (cleanTag in setOf("DLC", "UPDATE", "TITLE UPDATE", "PATCH", "DEMO", "BETA", "PROTO")) return true
+        if (cleanTag in Constants.Tags.CONTENT_TYPES) return true
         
-        if (cleanTag.matches(Regex("^[A-Z]{2,3}$"))) return true
+        if (cleanTag.matches(Constants.Tags.LANGUAGE_CODE_PATTERN)) return true
         
-        val validRegions = setOf(
-            "USA", "EUROPE", "JAPAN", "KOREA", "CHINA", "AUSTRALIA", "CANADA", "MEXICO",
-            "BRAZIL", "GERMANY", "FRANCE", "SPAIN", "ITALY", "RUSSIA", "UK", "UNITED KINGDOM",
-            "BRITAIN", "WORLD"
-        )
-        if (cleanTag in validRegions) return true
+        if (cleanTag.matches(Constants.Tags.VERSION_PATTERN)) return true
         
-        val validContinents = setOf("NORTH AMERICA", "SOUTH AMERICA", "EUROPE", "ASIA", "AFRICA", "OCEANIA")
-        if (cleanTag in validContinents) return true
+        if (cleanTag in Constants.Tags.ALL_REGIONS) return true
+
+        for (matcher in Constants.Tags.PARTIAL_MATCHERS) {
+            if (cleanTag.contains(matcher)) return true
+        }
         
         return false
     }

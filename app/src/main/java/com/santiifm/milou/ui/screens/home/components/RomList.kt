@@ -76,7 +76,7 @@ private fun cleanGameName(name: String): String {
                 trimmedName
             }
         }
-        .trim() // Trim again after removing extension
+        .trim()
 }
 
 @Composable
